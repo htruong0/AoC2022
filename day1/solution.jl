@@ -23,3 +23,10 @@ println("Maximum calories = $(maximum_calories).")
 top_three = partialsort(all_calories, 1:3, rev=true)
 sum_top_three = sum(top_three)
 println("Top three calories = $(top_three) => Sum = $(sum_top_three).")
+
+
+###### better solution #######
+f = readchomp("data.txt")
+calories = eachsplit.(eachsplit(f, "\n\n"), "\n");
+sum_calories = map(x -> parse.(Int, x) |> sum, calories);
+top_three = partialsort!(sum_calories, 1:3, rev=true)
