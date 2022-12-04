@@ -14,10 +14,7 @@ lines = map(x -> split.(x, "-"), split.(split(data, "\r\n"), ","))
 sets = map(x -> x |> get_assignments |> convert_assignments, lines)
 
 # part 1
-overlaps1 = map(x -> issubset(x[1], x[2]), sets)
-overlaps2 = map(x -> issubset(x[2], x[1]), sets)
-equal_sets = map(x -> isequal(x[1], x[2]), sets)
-total_overlaps = overlaps1 .+ overlaps2 .- equal_sets |> sum
+total_overlaps = map(x -> length(x[1]) <= length(x[2]) ? issubset(x[1], x[2]) : issubset(x[2], x[1]), sets) |> sum
 println("Part 1: pairs with complete overlap = $(total_overlaps)")
 
 # part 2
